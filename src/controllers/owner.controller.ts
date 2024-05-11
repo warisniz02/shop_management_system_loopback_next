@@ -37,12 +37,12 @@ export class OwnerController {
         'application/json': {
           schema: getModelSchemaRef(Owner, {
             title: 'NewOwner',
-            exclude: ['_id'],
+            exclude: ['ownerId'],
           }),
         },
       },
     })
-    owner: Omit<Owner, 'id'>,
+    owner: Omit<Owner, 'ownerId'>,
   ): Promise<Owner> {
     return this.ownerRepository.create(owner);
   }

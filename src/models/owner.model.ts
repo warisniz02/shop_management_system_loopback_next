@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Employee} from './employee.model';
 
 @model()
 export class Owner extends Entity {
@@ -7,7 +8,7 @@ export class Owner extends Entity {
     id: true,
     generated: true,
   })
-  _id?: number;
+  ownerId?: number;
 
   @property({
     type: 'string',
@@ -25,26 +26,16 @@ export class Owner extends Entity {
     type: 'string',
     required: true,
   })
-  phone: string;
+  password: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  address: string;
+  contact: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  age: string;
-
-  @property({
-    type: 'boolean',
-    required: true,
-  })
-  isOwner: boolean;
-
+  @hasMany(() => Employee)
+  ownerEmployee: Employee[];
 
   constructor(data?: Partial<Owner>) {
     super(data);
@@ -53,6 +44,6 @@ export class Owner extends Entity {
 
 export interface OwnerRelations {
   // describe navigational properties here
-}
+} 
 
 export type OwnerWithRelations = Owner & OwnerRelations;
