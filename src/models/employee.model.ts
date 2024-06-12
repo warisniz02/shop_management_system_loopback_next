@@ -27,12 +27,6 @@ export class Employee extends Entity {
   })
   salary: number;
 
-  // @property({
-  //   type: 'number',
-  //   required: true,
-  // })
-  // ownerId : number;
-
   @belongsTo(() => Owner, {name: 'employeeOwner'})
   ownerId: number;
 
