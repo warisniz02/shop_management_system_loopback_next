@@ -16,23 +16,23 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {
-  Employee,
   Owner,
+  Product,
 } from '../models';
 import {OwnerRepository} from '../repositories';
 
-export class OwnerEmployeeController {
+export class OwnerProductController {
   constructor(
     @repository(OwnerRepository) protected ownerRepository: OwnerRepository,
   ) { }
 
-  @get('/owners/{id}/employees', {
+  @get('/owners/{id}/products', {
     responses: {
       '200': {
-        description: 'Array of Owner has many Employee',
+        description: 'Array of Owner has many Product',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(Employee)},
+            schema: {type: 'array', items: getModelSchemaRef(Product)},
           },
         },
       },
@@ -40,16 +40,16 @@ export class OwnerEmployeeController {
   })
   async find(
     @param.path.number('id') id: number,
-    @param.query.object('filter') filter?: Filter<Employee>,
-  ): Promise<Employee[]> {
-    return this.ownerRepository.ownerEmployee(id).find(filter);
+    @param.query.object('filter') filter?: Filter<Product>,
+  ): Promise<Product[]> {
+    return this.ownerRepository.ownerProduct(id).find(filter);
   }
 
-  @post('/owners/{id}/employees', {
+  @post('/owners/{id}/products', {
     responses: {
       '200': {
         description: 'Owner model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Employee)}},
+        content: {'application/json': {schema: getModelSchemaRef(Product)}},
       },
     },
   })
@@ -58,22 +58,22 @@ export class OwnerEmployeeController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Employee, {
-            title: 'NewEmployeeInOwner',
-            exclude: ['ownerId'],
+          schema: getModelSchemaRef(Product, {
+            title: 'NewProductInOwner',
+            exclude: ['productId'],
             optional: ['ownerId']
           }),
         },
       },
-    }) employee: Omit<Employee, '_id'>,
-  ): Promise<Employee> {
-    return this.ownerRepository.ownerEmployee(id).create(employee);
+    }) product: Omit<Product, 'productId'>,
+  ): Promise<Product> {
+    return this.ownerRepository.ownerProduct(id).create(product);
   }
 
-  @patch('/owners/{id}/employees', {
+  @patch('/owners/{id}/products', {
     responses: {
       '200': {
-        description: 'Owner.Employee PATCH success count',
+        description: 'Owner.Product PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -83,28 +83,28 @@ export class OwnerEmployeeController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Employee, {partial: true}),
+          schema: getModelSchemaRef(Product, {partial: true}),
         },
       },
     })
-    employee: Partial<Employee>,
-    @param.query.object('where', getWhereSchemaFor(Employee)) where?: Where<Employee>,
+    product: Partial<Product>,
+    @param.query.object('where', getWhereSchemaFor(Product)) where?: Where<Product>,
   ): Promise<Count> {
-    return this.ownerRepository.ownerEmployee(id).patch(employee, where);
+    return this.ownerRepository.ownerProduct(id).patch(product, where);
   }
 
-  @del('/owners/{id}/employees', {
+  @del('/owners/{id}/products', {
     responses: {
       '200': {
-        description: 'Owner.Employee DELETE success count',
+        description: 'Owner.Product DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
   })
   async delete(
     @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(Employee)) where?: Where<Employee>,
+    @param.query.object('where', getWhereSchemaFor(Product)) where?: Where<Product>,
   ): Promise<Count> {
-    return this.ownerRepository.ownerEmployee(id).delete(where);
+    return this.ownerRepository.ownerProduct(id).delete(where);
   }
 }

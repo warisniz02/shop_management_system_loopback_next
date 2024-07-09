@@ -1,16 +1,16 @@
 import {inject} from '@loopback/core';
 import {DefaultCrudRepository} from '@loopback/repository';
 import {MysqlDataSource} from '../datasources';
-import {Sell, SellRelations} from '../models';
+import {Order, OrderRelations} from '../models';
 
-export class SellRepository extends DefaultCrudRepository<
-  Sell,
-  typeof Sell.prototype._id,
-  SellRelations
+export class OrderRepository extends DefaultCrudRepository<
+  Order,
+  typeof Order.prototype.orderId,
+  OrderRelations
 > {
   constructor(
     @inject('datasources.mysql') dataSource: MysqlDataSource,
   ) {
-    super(Sell, dataSource);
+    super(Order, dataSource);
   }
 }

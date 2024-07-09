@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Owner} from './owner.model';
 
 @model()
 export class Stock extends Entity {
@@ -7,7 +8,7 @@ export class Stock extends Entity {
     id: true,
     generated: true,
   })
-  _id?: number;
+  stockId?: number;
 
   @property({
     type: 'string',
@@ -22,22 +23,25 @@ export class Stock extends Entity {
   stock_quantity: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  buying_price: string;
+  buying_price: number;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  selling_price: string;
+  selling_price: number;
 
   @property({
     type: 'boolean',
     required: true,
   })
-  isOwner : boolean ;
+  isOwner: boolean;
+
+  @belongsTo(() => Owner, {name: 'stock_owner'})
+  fk_ownerId_stock: number;
 
   constructor(data?: Partial<Stock>) {
     super(data);

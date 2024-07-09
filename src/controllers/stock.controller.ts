@@ -7,13 +7,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,8 +23,8 @@ import {StockRepository} from '../repositories';
 export class StockController {
   constructor(
     @repository(StockRepository)
-    public stockRepository : StockRepository,
-  ) {}
+    public stockRepository: StockRepository,
+  ) { }
 
   @post('/stocks')
   @response(200, {
@@ -37,7 +37,7 @@ export class StockController {
         'application/json': {
           schema: getModelSchemaRef(Stock, {
             title: 'NewStock',
-            exclude: ['_id'],
+            exclude: ['stockId'],
           }),
         },
       },

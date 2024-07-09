@@ -7,13 +7,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,8 +23,8 @@ import {EmployeeRepository} from '../repositories';
 export class EmployeeController {
   constructor(
     @repository(EmployeeRepository)
-    public employeeRepository : EmployeeRepository,
-  ) {}
+    public employeeRepository: EmployeeRepository,
+  ) { }
 
   @post('/employees')
   @response(200, {
@@ -37,7 +37,7 @@ export class EmployeeController {
         'application/json': {
           schema: getModelSchemaRef(Employee, {
             title: 'NewEmployee',
-            exclude: ['_id'],
+            exclude: ['employeeId'],
           }),
         },
       },

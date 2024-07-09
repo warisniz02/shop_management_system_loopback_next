@@ -2,9 +2,9 @@ import {
   repository,
 } from '@loopback/repository';
 import {
-  param,
   get,
   getModelSchemaRef,
+  param,
 } from '@loopback/rest';
 import {
   Employee,
@@ -31,7 +31,7 @@ export class EmployeeOwnerController {
     },
   })
   async getOwner(
-    @param.path.number('id') id: typeof Employee.prototype._id,
+    @param.path.number('id') id: typeof Employee.prototype.employeeId,
   ): Promise<Owner> {
     return this.employeeRepository.employeeOwner(id);
   }

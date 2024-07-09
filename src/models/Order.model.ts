@@ -1,33 +1,26 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Sell extends Entity {
+export class Order extends Entity {
   @property({
     type: 'number',
     id: true,
     generated: true,
   })
-  _id?: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  product_name: string;
-
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  quantity: string;
+  orderId?: number;
 
   @property({
     type: 'number',
     required: true,
   })
-  seller_id: number;
+  product_id: number;
 
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  customer_id: number;
 
   @property({
     type: 'string',
@@ -36,13 +29,13 @@ export class Sell extends Entity {
   total_price: string;
 
 
-  constructor(data?: Partial<Sell>) {
+  constructor(data?: Partial<Order>) {
     super(data);
   }
 }
 
-export interface SellRelations {
+export interface OrderRelations {
   // describe navigational properties here
 }
 
-export type SellWithRelations = Sell & SellRelations;
+export type OrderWithRelations = Order & OrderRelations;

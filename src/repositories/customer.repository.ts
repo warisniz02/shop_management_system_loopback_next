@@ -5,7 +5,7 @@ import {Customer, CustomerRelations} from '../models';
 
 export class CustomerRepository extends DefaultCrudRepository<
   Customer,
-  typeof Customer.prototype._id,
+  typeof Customer.prototype.customerId,
   CustomerRelations
 > {
   constructor(

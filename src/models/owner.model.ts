@@ -1,7 +1,20 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Employee} from './employee.model';
+import {Product} from './product.model';
+import {Stock} from './stock.model';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_ownerId_product: {
+        name: 'fk_onwerId_product,',
+        foreignKey: 'ownerId',
+        entity: 'Owner',
+        entityKey: 'id'
+      },
+    },
+  },
+})
 export class Owner extends Entity {
   @property({
     type: 'number',
@@ -37,6 +50,12 @@ export class Owner extends Entity {
   @hasMany(() => Employee)
   ownerEmployee: Employee[];
 
+  @hasMany(() => Product)
+  ownerProduct: Product[];
+
+  @hasMany(() => Stock, {keyTo: 'fk_ownerId_stock'})
+  owner_stock: Stock[];
+
   constructor(data?: Partial<Owner>) {
     super(data);
   }
@@ -44,6 +63,6 @@ export class Owner extends Entity {
 
 export interface OwnerRelations {
   // describe navigational properties here
-} 
+}
 
 export type OwnerWithRelations = Owner & OwnerRelations;
